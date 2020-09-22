@@ -59,7 +59,7 @@
       databases: all
       method: trust  
   
-    - name: change permissions 5
+  - name: change permissions 5
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
       contype: local
