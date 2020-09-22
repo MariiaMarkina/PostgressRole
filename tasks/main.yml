@@ -1,30 +1,33 @@
-
----
+ ---
   - name: updating system
     apt:
       upgrade: yes
       update_cache: yes
+
   - name: adding user
-    postgresql_user: 
+    become: true
+    become_user: postgres
+    postgresql_user:
       name: ubuntu
-      priv: ALL
-      db: all
+      role_attr_flags: CREATEDB,SUPERUSER
       state: present
   - name: adding database
-    postgresql_db: 
+    become: true
+    become_user: postgres
+    postgresql_db:
       name: ubuntu
       owner: ubuntu
       state: present
   - name: rename config file
-    copy: 
-      remote_src: True 
+    copy:
+      remote_src: True
       src: /etc/postgresql/12/main/pg_hba.conf
       dest: /home/ubuntu/pg_hba.conf
   - name: Remove old file
-    file: 
+    file:
       path: /etc/postgresql/12/main/pg_hba.conf
-      state: absent 
-    
+      state: absent
+
   - name: change permissions 1
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -33,7 +36,7 @@
       databases: all
       method: trust
       create: true
-      
+
   - name: change permissions 2
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -41,7 +44,7 @@
       users: all
       databases: all
       method: trust
-  
+
   - name: change permissions 3
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -50,7 +53,7 @@
       source: 127.0.0.1/32
       databases: all
       method: trust
-      
+
   - name: change permissions 4
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -58,8 +61,8 @@
       users: all
       source: ::1/128
       databases: all
-      method: trust  
-  
+      method: trust
+
   - name: change permissions 5
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -67,7 +70,7 @@
       users: all
       databases: replication
       method: peer
-  
+
   - name: change permissions 6
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -76,7 +79,7 @@
       source: 127.0.0.1/32
       databases: replication
       method: md5
-      
+
   - name: change permissions 7
     postgresql_pg_hba:
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -84,6 +87,5 @@
       users: all
       source: ::1/128
       databases: replication
-      method: md5  
-  
-  
+      method: md5
+
