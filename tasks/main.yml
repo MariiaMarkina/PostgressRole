@@ -8,6 +8,7 @@
     postgresql_user: 
       name: ubuntu
       priv: ALL
+      db: all
       state: present
   - name: adding database
     postgresql_db: 
