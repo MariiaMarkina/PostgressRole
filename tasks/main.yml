@@ -3,6 +3,22 @@
     apt:
       upgrade: yes
       update_cache: yes
+      
+  - name: Execute the command in remote shell; stdout goes to the specified file on the remote
+    shell: sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+    
+  - name: add key for postgresql
+    apt_key: 
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc 
+      state: present 
+      
+  - name: updating system
+    apt:
+      upgrade: yes
+      update_cache: yes
+      
+  - name: installing postgresql
+    package: name=postgresql state=latest
 
   - name: adding user
     become: true
@@ -36,6 +52,8 @@
       databases: all
       method: trust
       create: true
+    notify:
+    - restarting postgresql
 
   - name: change permissions 2
     postgresql_pg_hba:
