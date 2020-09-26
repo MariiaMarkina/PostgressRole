@@ -34,15 +34,15 @@
       name: ubuntu
       owner: ubuntu
       state: present
-  - name: rename config file
-    copy:
-      remote_src: True
-      src: /etc/postgresql/12/main/pg_hba.conf
-      dest: /home/ubuntu/pg_hba.conf
-  - name: Remove old file
-    file:
-      path: /etc/postgresql/12/main/pg_hba.conf
-      state: absent
+#  - name: rename config file
+#    copy:
+#      remote_src: True
+#      src: /etc/postgresql/12/main/pg_hba.conf
+#      dest: /home/ubuntu/pg_hba.conf
+#  - name: Remove old file
+#    file:
+#      path: /etc/postgresql/12/main/pg_hba.conf
+#      state: absent
 
   - name: change permissions 1
     postgresql_pg_hba:
@@ -81,29 +81,29 @@
       databases: all
       method: trust
 
-  - name: change permissions 5
-    postgresql_pg_hba:
-      dest: /etc/postgresql/12/main/pg_hba.conf
-      contype: local
-      users: all
-      databases: replication
-      method: peer
+#  - name: change permissions 5
+#    postgresql_pg_hba:
+#      dest: /etc/postgresql/12/main/pg_hba.conf
+#      contype: local
+#      users: all
+#      databases: replication
+#      method: peer
 
-  - name: change permissions 6
-    postgresql_pg_hba:
-      dest: /etc/postgresql/12/main/pg_hba.conf
-      contype: host
-      users: all
-      source: 127.0.0.1/32
-      databases: replication
-      method: md5
+#  - name: change permissions 6
+#    postgresql_pg_hba:
+#      dest: /etc/postgresql/12/main/pg_hba.conf
+#      contype: host
+#      users: all
+#      source: 127.0.0.1/32
+#      databases: replication
+#      method: md5
 
-  - name: change permissions 7
-    postgresql_pg_hba:
-      dest: /etc/postgresql/12/main/pg_hba.conf
-      contype: host
-      users: all
-      source: ::1/128
-      databases: replication
-      method: md5
+#  - name: change permissions 7
+#    postgresql_pg_hba:
+#      dest: /etc/postgresql/12/main/pg_hba.conf
+#      contype: host
+#      users: all
+#      source: ::1/128
+#      databases: replication
+#      method: md5
 
