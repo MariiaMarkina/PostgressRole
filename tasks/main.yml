@@ -18,7 +18,7 @@
       update_cache: yes
       
   - name: installing postgresql
-    package: name=postgresql state=latest
+    package: name=postgresql-12 state=latest
 
   - name: adding user
     become: true
@@ -37,7 +37,7 @@
 
   - name: change permissions 1
     postgresql_pg_hba:
-      dest: /etc/postgresql/13/main/pg_hba.conf
+      dest: /etc/postgresql/12/main/pg_hba.conf
       contype: local
       users: postgres
       databases: all
@@ -48,7 +48,7 @@
 
   - name: change permissions 2
     postgresql_pg_hba:
-      dest: /etc/postgresql/13/main/pg_hba.conf
+      dest: /etc/postgresql/12/main/pg_hba.conf
       contype: local
       users: all
       databases: all
@@ -56,7 +56,7 @@
 
   - name: change permissions 3
     postgresql_pg_hba:
-      dest: /etc/postgresql/13/main/pg_hba.conf
+      dest: /etc/postgresql/12/main/pg_hba.conf
       contype: host
       users: all
       source: 127.0.0.1/32
@@ -65,7 +65,7 @@
 
   - name: change permissions 4
     postgresql_pg_hba:
-      dest: /etc/postgresql/13/main/pg_hba.conf
+      dest: /etc/postgresql/12/main/pg_hba.conf
       contype: host
       users: all
       source: ::1/128
